@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Chat</title>
+    <style>
+        video {
+            width: 45%;
+            margin: 10px;
+        }
+        .container {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Video Chat with Doctor</h1>
+        <video id="localVideo" autoplay muted></video>
+        <video id="remoteVideo" autoplay></video>
+        <br>
+        <button id="startButton">Start</button>
+    </div>
+    <script>
+        const ws = new WebSocket('ws://localhost:3000');
+        const startButton = document.getElementById('startButton');
+        const localVideo = document.getElementById('localVideo');
+        const remoteVideo = document.getElementById('remoteVideo');
+
+        let localStream;
+        let peerConnection;
+
+        const configuration = {
+            iceServers: [
+                { urls: 'stun:stun.l.google.com:19302' }
+            ]
+        };
+
+        ws.onmessage = (message) => {
+            const data = JSON.parse(message.data);
+
+            if (data.offer) {
+                handleOffer(data.offer);
+            } else if (data.answer) {
+                peerConnection.setRemoteDescription(new RTCSessionDescription(data.answer));
+            } else if (data.candidate) {
+                peerConnection.addIceCandidate(new RTCIceCandidate(data.candidate));
+            }
+        };
+
+        startButton.addEventListener('click', async () => {
+            localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+            localVideo.srcObject = localStream;
+
+            peerConnection = new RTCPeerConnection(configuration);
+
+            peerConnection.addStream(localStream);
+
+            peerConnection.onaddstream = (event) => {
+                remoteVideo.srcObject = event.stream;
+            };
+
+            peerConnection.onicecandidate = (event) => {
+                if (event.candidate) {
+                    ws.send(JSON.stringify({ candidate: event.candidate }));
+                }
+            };
+
+            const offer = await peerConnection.createOffer();
+            await peerConnection.setLocalDescription(offer);
+            ws.send(JSON.stringify({ offer }));
+        });
+
+        const handleOffer = async (offer) => {
+            peerConnection = new RTCPeerConnection(configuration);
+
+            peerConnection.addStream(localStream);
+
+            peerConnection.onaddstream = (event) => {
+                remoteVideo.srcObject = event.stream;
+            };
+
+            peerConnection.onicecandidate = (event) => {
+                if (event.candidate) {
+                    ws.send(JSON.stringify({ candidate: event.candidate }));
+                }
+            };
+
+            await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
+            const answer = await peerConnection.createAnswer();
+            await peerConnection.setLocalDescription(answer);
+            ws.send(JSON.stringify({ answer }));
+        };
+    </script>
+</body>
+</html>

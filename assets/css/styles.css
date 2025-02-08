@@ -1,0 +1,269 @@
+/* General Reset */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+/* Sticky Navigation Bar */
+.header-area {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%); /* Center the navbar */
+    width: 100%;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px 0;
+    transition: background 0.3s ease, padding 0.3s ease;
+}
+
+/* Navbar Scrolling Effect */
+.header-area.scrolled {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px 0;
+}
+
+/* Hamburger Menu (Positioned to the Top Right) */
+.hamburger {
+    position: absolute;
+    right: 20px; /* Move the hamburger to the right */
+    top: 20px;  /* Ensure it's at the top */
+    display: block;
+    cursor: pointer;
+    font-size: 30px;
+    color: white;
+}
+
+.hamburger i {
+    font-size: 30px;
+}
+
+/* Normal Navigation Menu (Desktop) */
+.nav-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+    justify-content: center; /* Center the navbar on larger screens */
+}
+
+.nav-menu li {
+    margin: 0;
+}
+
+.nav-menu a {
+    color:  rgb(50, 241, 209); 
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 15px;
+    transition: color 0.3s ease, background 0.3s ease;
+}
+
+.nav-menu a:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+}
+
+/* Mobile Menu */
+#menu-toggle {
+    display: none;
+}
+
+#menu-toggle:checked + .hamburger + .nav-menu.toggle-menu {
+    display: flex;
+    transform: translateX(0); /* Slide in the menu */
+}
+
+.nav-menu.toggle-menu {
+    display: none;
+    list-style: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 50px 20px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    transform: translateX(100%); /* Start off-screen */
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000; /* Ensure the mobile menu is above the content */
+}
+
+.nav-menu.toggle-menu a {
+    color:rgb(50, 241, 209);
+    font-size: 22px;
+    padding: 15px 0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.nav-menu.toggle-menu a:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+}
+
+/* Close Icon in Mobile Menu */
+.close-menu {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.close-icon {
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+.close-icon:hover {
+    color: rgb(50, 241, 209);
+}
+/* Banner Area Styling */
+.banner-area {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    color: white;
+    padding-left: 20px;
+    z-index: 1; /* Ensure banner content is above the background video */
+}
+
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1; /* Ensure the video stays in the background */
+}
+
+/* Styling for the Column (col-lg-8) */
+
+
+.banner-area h1 {
+    font-size: 36px;
+    font-weight: 600; /* Make the heading bold */
+    text-transform: uppercase; /* Make text all uppercase */
+    letter-spacing: 2px; /* Increase letter spacing for cool effect */
+    color: rgb(50, 241, 209); /* Bright color to stand out */
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7); /* Adding shadow for depth and contrast */
+    margin-bottom: 20px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Button Styling */
+.btn-primary {
+    display: inline-block;
+    background-color: #024d85;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.btn-primary:hover {
+    background-color: #035a9d;
+    transition: background-color 0.3s ease;
+}
+
+.patient-portal-info {
+    padding: 50px 0;
+    text-align: center;
+    background: #f7f7f7;
+}
+
+.patient-portal-info h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.patient-portal-info p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+
+    .nav-menu {
+        display: none;
+    }
+
+    .nav-menu.toggle-menu {
+        display: flex;
+    }
+}
+
+@media (min-width: 769px) {
+    .nav-menu {
+        display: flex;
+    }
+
+    .hamburger {
+        display: none;
+    }
+
+    .nav-menu.toggle-menu {
+        display: none;
+    }
+}
+
+/** Logo Shining Effect **/
+
+.logo {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.logo img {
+    width: 148px;
+    height: 52px;
+    display: block;
+}
+
+.logo::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 150%;
+    height: 100%;
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0) 100%);
+    transform: skewX(-25deg);
+    animation: shine 3s infinite;
+}
+
+/* Shine Animation */
+@keyframes shine {
+    0% {
+        left: -150%;
+    }
+    50% {
+        left: 100%;
+    }
+    100% {
+        left: 150%;
+    }
+}
