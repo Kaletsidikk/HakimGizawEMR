@@ -96,7 +96,7 @@ Once logged in, patients can view their profile, vital signs, prescriptions, req
 Contributions are welcome! Please fork this repository and submit pull requests for any improvements or bug fixes. For significant changes, kindly open an issue first to discuss your ideas.
 
 # License
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/Kaletsidikk/HakimGizawEMR-/blob/main/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/Kaletsidikk/HakimGizawEMR/blob/main/LICENCE) file for details.
 
 # Contact
 For any questions or suggestions, please contact:
